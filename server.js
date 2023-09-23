@@ -1,6 +1,3 @@
-
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,10 +7,38 @@ const User = require('./user');
 const Post = require('./post');
 
 const app = express();
+const CLIENT_ID = 'Y2d22e7510d59e0c602de ';
+const REDIRECT_URI = 'https://blogappfrontend-iawn.onrender.com/'; 
+const SCOPES = 'user:email'; 
+
+
+app.get('/github-auth', (req, res) => {
+  
+  const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
+
+
+  res.redirect(githubAuthUrl);
+});
 const PORT = process.env.PORT|| 2000;
 
 app.use(cors());
 app.use(bodyParser.json());
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+  '47060963969-tkec9em931dv0gohp4ti485fa8coatpj.apps.googleusercontent.com ',
+  'Y"47060963969-tkec9em931dv0gohp4ti485fa8coatpj.apps.googleusercontent.com","project_id":"blog-399906","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"',
+  'https://blogappfrontend-iawn.onrender.com/' // This should match one of the authorized redirect URIs in your Google Cloud Console project
+);
+
+// Generate the authorization URL
+const authUrl = oauth2Client.generateAuthUrl({
+  access_type: 'offline', // for refresh token
+  scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile', // the desired Google API scopes
+});
+
+console.log('Authorization URL:', authUrl);
 
 connectDB();
 
