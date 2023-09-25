@@ -114,7 +114,7 @@ passport.use(
     {
       clientID: '47060963969-tkec9em931dv0gohp4ti485fa8coatpj.apps.googleusercontent.com', // Replace with your Google OAuth2 client ID
       clientSecret: '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', // Replace with your Google OAuth2 client secret
-      callbackURL: 'https://blogappfrontend-iawn.onrender.com/auth/google/callback/', // Replace with your callback URL
+      callbackURL: 'https://blogappfrontend-iawn.onrender.com/auth/google/callback', // Replace with your callback URL
     },
     async (accessToken, refreshToken, profile, done) => {
       // Check if the user exists in your database by profile.id
