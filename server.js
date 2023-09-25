@@ -166,7 +166,7 @@ app.get(
   passport.authenticate('google', { failureRedirect: '/' }), // Redirect on failure
   (req, res) => {
     // Redirect to a success page or handle the user login as needed
-    res.redirect('/success');
+    res.redirect('/mainpage');
   }
 );
 
