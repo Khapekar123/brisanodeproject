@@ -37,17 +37,17 @@ passport.use(
 //         return done(null, existingUser);
 //      }
 
-//       // Create a new user if the user doesn't exist in your database
-//       const user = new User({
-//         googleId: profile.id,
-//         username: profile.displayName,
-//         email: profile.emails[0].value,
-//         role: 'USER',
-//       });
+      // Create a new user if the user doesn't exist in your database
+    //   const user = new User({
+    //     googleId: profile.id,
+    //     username: profile.displayName,
+    //     email: profile.emails[0].value,
+    //     role: 'USER',
+    //   });
 
-//       await user.save();
-//       done(null, user);
-//     }
+    //   await user.save();
+    //   done(null, user);
+    // //}
 //   )
 // );
 function(accessToken,refreshToken,profile,done){
@@ -83,23 +83,35 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }), // Redirect on failure
   (req, res) => {
     // Redirect to a success page or handle the user login as needed
-    res.send('/userProfile');
+    res.send(userProfile);
   }
 );
 
 // Your other routes can go here
 
 // Example route for protected content that requires authentication
-app.get('/protected', (req, res) => {
-  if (req.isAuthenticated()) {
-    // User is authenticated
-    res.json({ message: 'This is protected content!' });
-  } else {
-    // User is not authenticated
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-});
+// app.get('/protected', (req, res) => {
+//   if (req.isAuthenticated()) {
+//     // User is authenticated
+//     res.json({ message: 'This is protected content!' });
+//   } else {
+//     // User is not authenticated
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
 
 // ...
+
+app.post('/api/login',async (req,res)=>{
+  const{username,password}=req.body;
+  console.log(username,password);
+  const user = await User.findOne({username,password});
+  // console.log(user);
+  if(user){
+    res.status(200).json(user);
+  }else{
+    res.status(401).json({error:'Invalid username or password'});
+  }
+})
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
