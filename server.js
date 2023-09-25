@@ -226,7 +226,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
     clientID: '47060963969-tkec9em931dv0gohp4ti485fa8coatpj.apps.googleusercontent.com',
     clientSecret: "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",
-    callbackURL: "https://blog-zozd.onrender.com"
+    callbackURL: "https://blog-zozd.onrender.com/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     userProfile=profile;
