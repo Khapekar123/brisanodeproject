@@ -18,6 +18,12 @@ var userProfile;
 connectDB();
 
 // Initialize Passport.js
+const sessionSecret = crypto.randomBytes(32).toString('hex');
+app.use(session({
+  secret: sessionSecret, 
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
