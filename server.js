@@ -96,7 +96,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { connectDB } = require('./db');
 const User = require('./user');
 const Post = require('./post');
-
+const session=require('express-session');
 const app = express();
 const PORT = process.env.PORT || 2000;
 
