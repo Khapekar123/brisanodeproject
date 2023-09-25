@@ -10,6 +10,7 @@ const User = require('./user');
 const Post = require('./post');
 const session=require('express-session');
 const app = express();
+const passport=require('passport')
 const PORT = process.env.PORT || 2000;
 const crypto =require('crypto');
 app.use(cors());
