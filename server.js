@@ -14,11 +14,12 @@ const PORT = process.env.PORT || 2000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
+var userProfile;
 connectDB();
 
 // Initialize Passport.js
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Configure Google OAuth2 Strategy
 passport.use(
